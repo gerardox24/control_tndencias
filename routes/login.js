@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbConn = require('../db');
+var globals = require('../globals');
 
 router.get('/', (req, res) => {
     res.render('login');
@@ -19,5 +20,16 @@ router.post('/login', (req, res) => {
         }
     });
 });
+
+router.post('/post_login', (req, res) => {
+    // console.log(req.body);
+    globals.accessToken;
+    globals.accessToken = req.body.accessToken;
+    if (globals.accessToken) {
+        res.send({ code: 200 });
+    } else {
+        res.send({ code: 304 });
+    }
+})
 
 module.exports = router;

@@ -203,7 +203,21 @@ html
                         "Authorization" : "Bearer "+accessToken
                     }
                 }).done(function(data){
-                    //- window.location.href = 'http://localhost:3000/motorizados';
+                    localStorage.setItem('accessToken', accessToken);
+                    $.ajax({
+                        url: '/post_login',
+                        type: 'POST',
+                        async: true,
+                        data: {
+                            accessToken: accessToken
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            if(data.code == 200) {
+                                window.location.href = '/dashboard';
+                            }
+                        }
+                    })
                     
                 });
             }

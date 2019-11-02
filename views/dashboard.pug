@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    title #{title}
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+    link(rel='stylesheet', href='/css/motorizados.css')
+  body
+    .page-wrapper.chiller-theme.toggled
+      a#show-sidebar.btn.btn-sm.btn-dark(href='#')
+        i.fas.fa-bars
+      nav#sidebar.sidebar-wrapper
+        .sidebar-content
+          .sidebar-brand
+            a(href='#') #{title}
+            #close-sidebar
+             i.fas.fa-times
+          .sidebar-header
+            .user-pic
+              img.img-responsive.img-rounded(src='https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg' alt='User picture')
+            .user-info
+              span.user-name#user-name
+                | Jhon
+                strong Smith
+              span.user-role#user-role Administrator
+              span.user-status
+                i.fa.fa-circle
+                span Online
+
+          .sidebar-menu
+            ul
+              li.header-menu
+                span General
+              li
+                a(href='/ordenes')
+                  i.fa.fa-calendar
+                  span Ordenes
+              li
+                a(href='/motorizados')
+                  i.fa.fa-calendar
+                  span Motorizados
+      main.page-content
+        .container-fluid
+          h2 Dashboard
+          hr
+          .row
+            
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous')
+    script(src="/js/motorizados.js")
+    script.
+      $.ajax({
+        url: 'https://graph.microsoft.com/v1.0/me',
+        type: 'GET',
+        headers: {
+          'Authorization' : 'Bearer '+ localStorage.getItem('accessToken'),
+          'Content-Type' : 'application/json'
+        },
+        success: function(data) {
+          console.log(data);
+          $("#user-name").html(data.displayName+' <strong>'+data.surname+'</strong>');
+          $("#user-role").html(data.jobTitle);
+        }
+      });
+
+      $.ajax({
+        url: 'https://graph.microsoft.com/v1.0/me/memberOf',
+        type: 'GET',
+        headers: {
+          'Authorization' : 'Bearer '+ localStorage.getItem('accessToken'),
+          'Content-Type' : 'application/json'
+        },
+        success: function(data){
+          console.log(data);
+        }
+      })
+    //- script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
+    //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")

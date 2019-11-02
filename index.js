@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
@@ -7,6 +6,13 @@ const logger = require('morgan');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const dbConn = require('./db');
+
+var loginRoute = require('./routes/login');
+var dashboardRoute = require('./routes/dashboard');
+var ordenesRoute = require('./routes/ordenes');
+var motorizadosRoute = require('./routes/motorizados');
+
+const app = express();
 
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public'));
@@ -19,10 +25,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var homeRoute = require('./routes/home');
-var motorizadosRoute = require('./routes/motorizados');
 
-app.use('/', homeRoute);
+app.use('/', loginRoute);
+app.use('/dashboard', dashboardRoute);
+app.use('/ordenes', ordenesRoute);
 app.use('/motorizados', motorizadosRoute);
 
 app.use((req, res, next) => {
