@@ -42,6 +42,7 @@ html
       main.page-content
         .container-fluid
             h2 Ordenes
+            button.btn.btn-default#btn-nuevo Nueva Orden
             hr
             .row
                 table.table
@@ -60,9 +61,9 @@ html
                                 th #{order.fecha}
                                 th #{order.total}
                                 th.inline-block
-                                    button:button.btn.btn-primary.mr-1 Ver
-                                    button:button.btn.btn-success.mr-1 Editar
-                                    button:button.btn.btn-danger.mr-1 Eliminar
+                                    button:button.btn.btn-primary.mr-1#btn-ver Ver
+                                    button:button.btn.btn-success.mr-1#btn-editar Editar
+                                    button:button.btn.btn-danger.mr-1#btn-eliminar Eliminar
             
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous')
@@ -91,7 +92,42 @@ html
           'Content-Type' : 'application/json'
         },
         success: function(data){
-          console.log(data);
+        //-   console.log(data);
+          data.value.forEach(function(value) {
+              console.log(value);
+              //sistemas
+              if(value.id == '19b879a8-6b52-4567-8e19-966ecbcbc836'){
+                  console.log('sistemas');
+                  $("#btn-ver").show();
+                  $("#btn-editar").show();
+                  $("#btn-eliminar").show();
+                  $("#btn-nuevo").hide();
+              }
+              //ventas
+              else if( value.id == 'fe1fd5bf-a856-484c-8bbb-f0c75c68d09e'){
+                  console.log('ventas');
+                  $("#btn-ver").show();
+                  $("#btn-editar").show();
+                  $("#btn-eliminar").show();
+                  $("#btn-nuevo").show();
+              }
+              //marketing
+              else if( value.id == '07746361-3c7b-4f09-9b6a-d99c204f6398'){
+                    console.log('marketing');
+                    $("#btn-ver").show();
+                    $("#btn-editar").hide();
+                    $("#btn-eliminar").hide();
+                    $("#btn-nuevo").hide();
+              }
+              //logistica
+              else if( value.id == 'c97e9244-4076-4dea-893d-f73b8ec13c7a'){
+                  console.log('logistica');
+                  $("#btn-ver").show();
+                  $("#btn-editar").hide();
+                  $("#btn-eliminar").hide();
+                  $("#btn-nuevo").hide();
+              }
+          })
         }
       })
     //- script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
