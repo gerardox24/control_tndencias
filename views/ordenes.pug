@@ -26,6 +26,7 @@ html
               span.user-status
                 i.fa.fa-circle
                 span Online
+                //- a#logout Cerrar Sesión                    
 
           .sidebar-menu
             ul
@@ -61,15 +62,28 @@ html
                                 th #{order.fecha}
                                 th #{order.total}
                                 th.inline-block
-                                    button:button.btn.btn-primary.mr-1#btn-ver Ver
-                                    button:button.btn.btn-success.mr-1#btn-editar Editar
-                                    button:button.btn.btn-danger.mr-1#btn-eliminar Eliminar
+                                    button:button.btn.btn-primary.mr-1.btn-ver Ver
+                                    button:button.btn.btn-success.mr-1.btn-editar Editar
+                                    button:button.btn.btn-danger.mr-1.btn-eliminar Eliminar
             
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous')
+    script(src='https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js')
     script(src="/js/motorizados.js")
     script.
+
+        var msalConfig = {
+                auth: {
+                    clientId: "f383fa6a-fe2a-4e96-8078-33ed9374fe2b",
+                    authority: "https://login.microsoftonline.com/2678d352-e191-4686-8ed8-9d21742368b7"
+                },
+                cache: {
+                    cacheLocation: "localStorage",
+                    storeAuthStateInCookie: true
+                }
+            };
+        var myMSALObj = new Msal.UserAgentApplication(msalConfig);
       $.ajax({
         url: 'https://graph.microsoft.com/v1.0/me',
         type: 'GET',
@@ -98,37 +112,40 @@ html
               //sistemas
               if(value.id == '19b879a8-6b52-4567-8e19-966ecbcbc836'){
                   console.log('sistemas');
-                  $("#btn-ver").show();
-                  $("#btn-editar").show();
-                  $("#btn-eliminar").show();
+                  $(".btn-ver").show();
+                  $(".btn-editar").show();
+                  $(".btn-eliminar").show();
                   $("#btn-nuevo").hide();
               }
               //ventas
               else if( value.id == 'fe1fd5bf-a856-484c-8bbb-f0c75c68d09e'){
                   console.log('ventas');
-                  $("#btn-ver").show();
-                  $("#btn-editar").show();
-                  $("#btn-eliminar").show();
+                  $(".btn-ver").show();
+                  $(".btn-editar").show();
+                  $(".btn-eliminar").show();
                   $("#btn-nuevo").show();
               }
               //marketing
               else if( value.id == '07746361-3c7b-4f09-9b6a-d99c204f6398'){
                     console.log('marketing');
-                    $("#btn-ver").show();
-                    $("#btn-editar").hide();
-                    $("#btn-eliminar").hide();
+                    $(".btn-ver").show();
+                    $(".btn-editar").hide();
+                    $(".btn-eliminar").hide();
                     $("#btn-nuevo").hide();
               }
               //logistica
               else if( value.id == 'c97e9244-4076-4dea-893d-f73b8ec13c7a'){
                   console.log('logistica');
-                  $("#btn-ver").show();
-                  $("#btn-editar").hide();
-                  $("#btn-eliminar").hide();
+                  $(".btn-ver").show();
+                  $(".btn-editar").hide();
+                  $(".btn-eliminar").hide();
                   $("#btn-nuevo").hide();
               }
           })
         }
-      })
+      });
+    //-   $('#logout').on('click', function() {
+    //-       myMSALObj.logout();
+    //-   });
     //- script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
     //- script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")
